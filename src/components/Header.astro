@@ -23,7 +23,8 @@ const isActive = (href: string) => {
     <div class="flex justify-between items-center h-16">
       <!-- Logo/Brand -->
       <div class="flex items-center">
-        <a href={new URL(Astro.site?.pathname || '/', Astro.site || '/').toString()} class="text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+        <a href={`${import.meta.env.BASE_URL}`}
+           class="text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
           Eyal Mizrahi
         </a>
       </div>
@@ -32,7 +33,7 @@ const isActive = (href: string) => {
       <nav class="hidden md:flex items-center space-x-8">
         {navItems.map((item) => (
           <a
-            href={new URL(item.href, Astro.site || '/').toString()}
+            href={`${import.meta.env.BASE_URL}${item.href.replace(/^\//,'')}`}
             class={`text-sm font-medium transition-colors ${
               isActive(item.href)
                 ? 'text-primary-600 dark:text-primary-400'

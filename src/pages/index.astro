@@ -74,11 +74,11 @@ const skills = [
             </div>
             
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-300">
+              <a href={`${import.meta.env.BASE_URL}contact/`} class="inline-flex items-center justify-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-300">
                 <span>Get In Touch</span>
                 <span class="ml-2">💬</span>
               </a>
-              <a href="/projects" class="inline-flex items-center justify-center px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-semibold rounded-lg transition-all duration-300">
+              <a href={`${import.meta.env.BASE_URL}projects/`} class="inline-flex items-center justify-center px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-semibold rounded-lg transition-all duration-300">
                 <span>View My Work</span>
                 <span class="ml-2">💼</span>
               </a>
@@ -182,7 +182,7 @@ const skills = [
         </div>
         
         <div class="text-center mt-12">
-          <a href="/projects" class="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-300">
+          <a href={`${import.meta.env.BASE_URL}projects/`} class="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-300">
             <span>View All Projects</span>
             <span class="ml-2">→</span>
           </a>
@@ -254,11 +254,11 @@ const skills = [
           Let's discuss how we can bring your ideas to life.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-600 hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-300">
+          <a href={`${import.meta.env.BASE_URL}contact/`} class="inline-flex items-center px-8 py-4 bg-white text-primary-600 hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-300">
             <span>Get In Touch</span>
             <span class="ml-2">💬</span>
           </a>
-          <a href="/about" class="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold rounded-lg transition-all duration-300">
+          <a href={`${import.meta.env.BASE_URL}about/`} class="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold rounded-lg transition-all duration-300">
             <span>Learn More About Me</span>
             <span class="ml-2">→</span>
           </a>

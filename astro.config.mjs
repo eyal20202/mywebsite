@@ -6,9 +6,10 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://eyal20202.github.io/mywebsite',
+  site: 'https://eyal20202.github.io',
   base: '/mywebsite',
   output: 'static',
+  trailingSlash: 'always',
   integrations: [
     react(),
     tailwind(),
