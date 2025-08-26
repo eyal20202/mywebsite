@@ -113,7 +113,7 @@ const allTags = [...new Set(publishedPosts.flatMap(post => post.data.tags))];
 
                 <!-- Title -->
                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                  <a href={`/blog/${post.slug}`} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  <a href={`${Astro.site?.pathname || ''}/blog/${post.slug}`} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                     {post.data.title}
                   </a>
                 </h2>
@@ -134,7 +134,7 @@ const allTags = [...new Set(publishedPosts.flatMap(post => post.data.tags))];
 
                 <!-- Read More -->
                 <a 
-                  href={`/blog/${post.slug}`}
+                  href={`${Astro.site?.pathname || ''}/blog/${post.slug}`}
                   class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
                 >
                   Read More
