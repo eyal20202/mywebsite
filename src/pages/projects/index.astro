@@ -1,0 +1,318 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+// Get all projects
+const projects = await getCollection('projects');
+const publishedProjects = projects
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Mock GitHub data (in real implementation, this would come from GitHub API)
+const githubProjects = [
+  {
+    name: 'personal-website',
+    description: 'My personal website built with Astro, React, and TypeScript',
+    language: 'TypeScript',
+    stars: 15,
+    forks: 3,
+    url: 'https://github.com/yourusername/personal-website',
+    topics: ['astro', 'react', 'typescript', 'tailwindcss'],
+    updated: new Date('2024-01-15'),
+  },
+  {
+    name: 'ai-chat-assistant',
+    description: 'AI-powered chat assistant using OpenAI API',
+    language: 'JavaScript',
+    stars: 8,
+    forks: 2,
+    url: 'https://github.com/yourusername/ai-chat-assistant',
+    topics: ['openai', 'chatbot', 'react', 'nodejs'],
+    updated: new Date('2024-01-10'),
+  },
+  {
+    name: 'real-time-game-platform',
+    description: 'Multiplayer gaming platform with WebSocket support',
+    language: 'TypeScript',
+    stars: 12,
+    forks: 5,
+    url: 'https://github.com/yourusername/real-time-game-platform',
+    topics: ['websocket', 'react', 'nodejs', 'typescript'],
+    updated: new Date('2024-01-05'),
+  },
+];
+
+const allTechnologies = [...new Set([
+  ...publishedProjects.flatMap(project => project.data.technologies),
+  ...githubProjects.flatMap(project => project.topics)
+])];
+---
+
+<Layout title="Projects - Your Name" description="A showcase of my projects and contributions">
+  <Header />
+  
+  <main class="min-h-screen bg-gray-50 dark:bg-dark-800">
+    <!-- Hero Section -->
+    <section class="bg-white dark:bg-dark-900 border-b border-gray-200 dark:border-dark-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            Projects
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            A collection of my work, from personal projects to open source contributions. 
+            Each project represents a learning experience and a step forward in my development journey.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="bg-white dark:bg-dark-900 border-b border-gray-200 dark:border-dark-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-wrap gap-2 justify-center">
+          <button
+            class="tech-filter px-4 py-2 rounded-full text-sm font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-700"
+            data-tech="all"
+          >
+            All Projects
+          </button>
+          {allTechnologies.map((tech) => (
+            <button
+              class="tech-filter px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-dark-600 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+              data-tech={tech}
+            >
+              {tech}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
+          Featured Projects
+        </h2>
+        
+        <div class="grid lg:grid-cols-2 gap-8 mb-16">
+          {publishedProjects.slice(0, 4).map((project) => (
+            <div 
+              class="project-card bg-white dark:bg-dark-900 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              data-technologies={project.data.technologies.join(' ')}
+            >
+              {project.data.heroImage && (
+                <div class="h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+                  <img 
+                    src={project.data.heroImage} 
+                    alt={project.data.title}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              
+              <div class="p-6">
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
+                  {project.data.title}
+                </h3>
+                
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                  {project.data.description}
+                </p>
+                
+                <div class="flex flex-wrap gap-2 mb-6">
+                  {project.data.technologies.map((tech) => (
+                    <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm rounded-full">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                
+                <div class="flex space-x-4">
+                  {project.data.liveUrl && (
+                    <a
+                      href={project.data.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
+                    >
+                      <span>Live Demo</span>
+                      <span class="ml-2">🚀</span>
+                    </a>
+                  )}
+                  
+                  {project.data.githubUrl && (
+                    <a
+                      href={project.data.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-700 font-medium rounded-lg transition-colors"
+                    >
+                      <span>View Code</span>
+                      <span class="ml-2">🐙</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- GitHub Projects -->
+    <section class="py-16 bg-white dark:bg-dark-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
+          GitHub Projects
+        </h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {githubProjects.map((project) => (
+            <div 
+              class="github-card bg-white dark:bg-dark-900 rounded-lg border border-gray-200 dark:border-dark-700 p-6 hover:shadow-lg transition-shadow duration-300"
+              data-technologies={project.topics.join(' ')}
+            >
+              <div class="flex items-start justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                  <a 
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  >
+                    {project.name}
+                  </a>
+                </h3>
+                <span class="text-xs text-gray-500 dark:text-gray-400">
+                  {project.language}
+                </span>
+              </div>
+              
+              <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+                {project.description}
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.topics.slice(0, 3).map((topic) => (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-dark-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                    {topic}
+                  </span>
+                ))}
+                {project.topics.length > 3 && (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-dark-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                    +{project.topics.length - 3}
+                  </span>
+                )}
+              </div>
+              
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <div class="flex items-center space-x-4">
+                  <span class="flex items-center space-x-1">
+                    <span>⭐</span>
+                    <span>{project.stars}</span>
+                  </span>
+                  <span class="flex items-center space-x-1">
+                    <span>🍴</span>
+                    <span>{project.forks}</span>
+                  </span>
+                </div>
+                
+                <span>
+                  Updated {project.updated.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div class="text-center mt-12">
+          <a
+            href="https://github.com/yourusername"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 font-semibold rounded-lg transition-colors"
+          >
+            <span>View All on GitHub</span>
+            <span class="ml-2">🐙</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-primary-600 dark:bg-primary-700">
+      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-white mb-6">
+          Have a project in mind?
+        </h2>
+        <p class="text-xl text-primary-100 mb-8">
+          Let's work together to bring your ideas to life
+        </p>
+        <a
+          href="/contact"
+          class="inline-flex items-center px-8 py-4 bg-white text-primary-600 hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-300"
+        >
+          <span>Get In Touch</span>
+          <span class="ml-2">💬</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Filter functionality
+  const techFilters = document.querySelectorAll('.tech-filter');
+  const projectCards = document.querySelectorAll('.project-card');
+  const githubCards = document.querySelectorAll('.github-card');
+
+  techFilters.forEach((filter) => {
+    filter.addEventListener('click', () => {
+      // Update active state
+      techFilters.forEach(f => {
+        f.classList.remove('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-700', 'dark:text-primary-300', 'border-primary-200', 'dark:border-primary-700');
+        f.classList.add('bg-gray-100', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300', 'border-gray-200', 'dark:border-dark-600');
+      });
+      
+      filter.classList.remove('bg-gray-100', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300', 'border-gray-200', 'dark:border-dark-600');
+      filter.classList.add('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-700', 'dark:text-primary-300', 'border-primary-200', 'dark:border-primary-700');
+      
+      const selectedTech = filter.getAttribute('data-tech') || 'all';
+      
+      // Filter project cards
+      projectCards.forEach((card) => {
+        const technologies = card.getAttribute('data-technologies') || '';
+        if (selectedTech === 'all' || technologies.includes(selectedTech)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      // Filter GitHub cards
+      githubCards.forEach((card) => {
+        const technologies = card.getAttribute('data-technologies') || '';
+        if (selectedTech === 'all' || technologies.includes(selectedTech)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

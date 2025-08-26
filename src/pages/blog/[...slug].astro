@@ -1,0 +1,263 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+const slugParam = Astro.params.slug as string;
+const allForFind = await getCollection('blog');
+const post = allForFind.find((p) => p.slug === slugParam);
+if (!post) {
+  return new Response('Post not found', { status: 404 });
+}
+const { Content } = await post.render();
+
+// Get related posts
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter((p) => p.slug !== post.slug && !p.data.draft)
+  .filter((p) => p.data.tags.some(tag => post.data.tags.includes(tag)))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Layout 
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.heroImage}
+>
+  <Header />
+  
+  <main class="min-h-screen bg-gray-50 dark:bg-dark-800">
+    <!-- Hero Section -->
+    <section class="bg-white dark:bg-dark-900 border-b border-gray-200 dark:border-dark-700">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Breadcrumb -->
+        <nav class="mb-8">
+          <ol class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+            <li><a href="/" class="hover:text-primary-600 dark:hover:text-primary-400">Home</a></li>
+            <li>•</li>
+            <li><a href="/blog" class="hover:text-primary-600 dark:hover:text-primary-400">Blog</a></li>
+            <li>•</li>
+            <li class="text-gray-900 dark:text-white">{post.data.title}</li>
+          </ol>
+        </nav>
+
+        <!-- Article Header -->
+        <header class="text-center">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            {post.data.title}
+          </h1>
+          
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            {post.data.description}
+          </p>
+
+          <!-- Meta Information -->
+          <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm text-gray-500 dark:text-gray-400 mb-8">
+            <div class="flex items-center space-x-2">
+              <span>👤</span>
+              <span>{post.data.author}</span>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <span>📅</span>
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </time>
+            </div>
+            
+            {post.data.readingTime && (
+              <div class="flex items-center space-x-2">
+                <span>⏱️</span>
+                <span>{post.data.readingTime} min read</span>
+              </div>
+            )}
+          </div>
+
+          <!-- Tags -->
+          {post.data.tags.length > 0 && (
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+              {post.data.tags.map((tag) => (
+                <a
+                  href={`/blog?tag=${tag}`}
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm rounded-full hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors"
+                >
+                  #{tag}
+                </a>
+              ))}
+            </div>
+          )}
+        </header>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <article class="prose prose-lg dark:prose-invert prose-primary max-w-none">
+          <Content />
+        </article>
+      </div>
+    </section>
+
+    <!-- Share Section -->
+    <section class="bg-white dark:bg-dark-900 border-t border-gray-200 dark:border-dark-700">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center">
+          <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            Share this post
+          </h3>
+          <div class="flex justify-center space-x-4">
+            <button
+              onclick={`window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}', '_blank')`}
+              class="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+            >
+              <span>🐦</span>
+              <span>Twitter</span>
+            </button>
+            <button
+              onclick={`window.open('https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}', '_blank')`}
+              class="flex items-center space-x-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition-colors"
+            >
+              <span>💼</span>
+              <span>LinkedIn</span>
+            </button>
+            <button
+              onclick="navigator.clipboard.writeText(window.location.href)"
+              class="flex items-center space-x-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+            >
+              <span>📋</span>
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <section class="py-16 bg-gray-50 dark:bg-dark-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Related Posts
+          </h3>
+          
+          <div class="grid md:grid-cols-3 gap-8">
+            {relatedPosts.map((relatedPost) => (
+              <article class="bg-white dark:bg-dark-900 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                {relatedPost.data.heroImage && (
+                  <div class="h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+                    <img 
+                      src={relatedPost.data.heroImage} 
+                      alt={relatedPost.data.title}
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                
+                <div class="p-6">
+                  <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    <a href={`/blog/${relatedPost.slug}`} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                      {relatedPost.data.title}
+                    </a>
+                  </h4>
+                  
+                  <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                    {relatedPost.data.description}
+                  </p>
+                  
+                  <div class="flex items-center justify-between">
+                    <time class="text-sm text-gray-500 dark:text-gray-400">
+                      {relatedPost.data.pubDate.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </time>
+                    
+                    <a 
+                      href={`/blog/${relatedPost.slug}`}
+                      class="text-primary-600 dark:text-primary-400 hover:underline text-sm font-medium"
+                    >
+                      Read More →
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Prose styles for markdown content */
+  .prose {
+    color: #374151;
+  }
+  
+  .dark .prose {
+    color: #d1d5db;
+  }
+  
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #111827;
+    font-weight: 700;
+  }
+  
+  .dark .prose h1, .dark .prose h2, .dark .prose h3, .dark .prose h4, .dark .prose h5, .dark .prose h6 {
+    color: #f9fafb;
+  }
+  
+  .prose a {
+    color: #3b82f6;
+    text-decoration: underline;
+  }
+  
+  .dark .prose a {
+    color: #60a5fa;
+  }
+  
+  .prose code {
+    background-color: #f3f4f6;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+  
+  .dark .prose code {
+    background-color: #374151;
+  }
+  
+  .prose pre {
+    background-color: #1f2937;
+    color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+  }
+  
+  .prose blockquote {
+    border-left: 4px solid #3b82f6;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #6b7280;
+  }
+  
+  .dark .prose blockquote {
+    color: #9ca3af;
+  }
+</style>

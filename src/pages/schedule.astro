@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout title="קביעת פגישה">
+  <Header />
+  <section class="max-w-2xl mx-auto py-12">
+    <h1 class="text-3xl font-bold mb-6">קבעו פגישה</h1>
+
+    <div class="space-y-4">
+      <a href="/api/google/auth" class="inline-block px-4 py-2 bg-blue-600 text-white rounded">התחברו לגוגל</a>
+
+      <form id="booking-form" class="space-y-3">
+        <input class="w-full border rounded px-3 py-2" name="name" placeholder="שם מלא" required />
+        <input class="w-full border rounded px-3 py-2" type="email" name="email" placeholder="אימייל" required />
+        <input class="w-full border rounded px-3 py-2" type="datetime-local" name="start" required />
+        <input class="w-full border rounded px-3 py-2" type="number" name="duration" placeholder="משך בדקות (ברירת מחדל 30)" />
+        <textarea class="w-full border rounded px-3 py-2" name="notes" placeholder="הערות (לא חובה)"></textarea>
+        <button class="px-4 py-2 bg-green-600 text-white rounded" type="submit">שריין פגישה</button>
+      </form>
+
+      <div class="border-t pt-4">
+        <h2 class="font-semibold mb-2">זמינות להיום</h2>
+        <div id="slots" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div id="result" class="text-sm"></div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('booking-form');
+    const result = document.getElementById('result');
+    const slotsEl = document.getElementById('slots');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const payload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        start: new Date(formData.get('start')).toISOString(),
+        durationMinutes: Number(formData.get('duration') || 30),
+        notes: formData.get('notes') || undefined,
+      };
+      const res = await fetch('/api/calendar/book', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      result.textContent = data.error ? `שגיאה: ${data.error}` : `נקבע! קישור: ${data.htmlLink || data.hangoutLink || ''}`;
+    });
+
+    async function loadSlots() {
+      const today = new Date().toISOString().slice(0,10);
+      const res = await fetch('/api/calendar/availability', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ date: today }) });
+      const data = await res.json();
+      slotsEl.innerHTML = '';
+      if (data.slots?.length) {
+        data.slots.forEach((iso) => {
+          const d = new Date(iso);
+          const btn = document.createElement('button');
+          btn.className = 'px-3 py-1 border rounded hover:bg-gray-50';
+          btn.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          btn.addEventListener('click', () => {
+            const input = form.querySelector('input[name="start"]');
+            if (input) {
+              const local = new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16);
+              input.value = local;
+            }
+          });
+          slotsEl.appendChild(btn);
+        });
+      } else {
+        slotsEl.textContent = 'עדיין בפיתוח';
+      }
+    }
+
+    loadSlots();
+  </script>
+</Layout>
+
+

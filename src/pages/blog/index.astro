@@ -1,0 +1,243 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts
+const posts = await getCollection('blog');
+const publishedPosts = posts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get unique tags
+const allTags = [...new Set(publishedPosts.flatMap(post => post.data.tags))];
+---
+
+<Layout title="Blog - Your Name" description="Thoughts on web development, technology, and everything in between">
+  <Header />
+  
+  <main class="min-h-screen bg-gray-50 dark:bg-dark-800">
+    <!-- Hero Section -->
+    <section class="bg-white dark:bg-dark-900 border-b border-gray-200 dark:border-dark-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            Blog
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Thoughts on web development, technology, and everything in between. 
+            Sharing knowledge and experiences from my journey as a developer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="bg-white dark:bg-dark-900 border-b border-gray-200 dark:border-dark-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+          <!-- Search -->
+          <div class="relative flex-1 max-w-md">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search posts..."
+              class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-dark-600 rounded-lg bg-white dark:bg-dark-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="text-gray-400">🔍</span>
+            </div>
+          </div>
+
+          <!-- Tags Filter -->
+          <div class="flex flex-wrap gap-2">
+            <button
+              class="tag-filter px-3 py-1 rounded-full text-sm font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-700"
+              data-tag="all"
+            >
+              All Posts
+            </button>
+            {allTags.map((tag) => (
+              <button
+                class="tag-filter px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-dark-600 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                data-tag={tag}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Posts Grid -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="posts-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {publishedPosts.map((post) => (
+            <article 
+              class="post-card bg-white dark:bg-dark-900 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              data-tags={post.data.tags.join(' ')}
+              data-title={post.data.title.toLowerCase()}
+              data-description={post.data.description.toLowerCase()}
+            >
+              <!-- Hero Image -->
+              {post.data.heroImage && (
+                <div class="h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+                  <img 
+                    src={post.data.heroImage} 
+                    alt={post.data.title}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              
+              <!-- Content -->
+              <div class="p-6">
+                <!-- Meta -->
+                <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </time>
+                  {post.data.readingTime && (
+                    <>
+                      <span>•</span>
+                      <span>{post.data.readingTime} min read</span>
+                    </>
+                  )}
+                </div>
+
+                <!-- Title -->
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                  <a href={`/blog/${post.slug}`} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h2>
+
+                <!-- Description -->
+                <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                  {post.data.description}
+                </p>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {post.data.tags.map((tag) => (
+                    <span class="px-2 py-1 bg-gray-100 dark:bg-dark-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <!-- Read More -->
+                <a 
+                  href={`/blog/${post.slug}`}
+                  class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
+                >
+                  Read More
+                  <span class="ml-1">→</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-16">
+          <div class="text-6xl mb-4">🔍</div>
+          <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+            No posts found
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Try adjusting your search or filter criteria
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Search and filter functionality
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const tagFilters = document.querySelectorAll('.tag-filter');
+  const postCards = document.querySelectorAll('.post-card');
+  const noResults = document.getElementById('no-results');
+  const postsContainer = document.getElementById('posts-container');
+
+  let currentTag = 'all';
+  let currentSearch = '';
+
+  function filterPosts() {
+    let visibleCount = 0;
+
+    postCards.forEach((card) => {
+      const tags = card.getAttribute('data-tags') || '';
+      const title = card.getAttribute('data-title') || '';
+      const description = card.getAttribute('data-description') || '';
+      
+      const matchesTag = currentTag === 'all' || tags.includes(currentTag);
+      const matchesSearch = currentSearch === '' || 
+        title.includes(currentSearch) || 
+        description.includes(currentSearch);
+      
+      if (matchesTag && matchesSearch) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    // Show/hide no results message
+    if (visibleCount === 0) {
+      noResults?.classList.remove('hidden');
+      postsContainer?.classList.add('hidden');
+    } else {
+      noResults?.classList.add('hidden');
+      postsContainer?.classList.remove('hidden');
+    }
+  }
+
+  // Search input handler
+  searchInput?.addEventListener('input', (e) => {
+    currentSearch = (e.target as HTMLInputElement).value.toLowerCase();
+    filterPosts();
+  });
+
+  // Tag filter handlers
+  tagFilters.forEach((filter) => {
+    filter.addEventListener('click', () => {
+      // Update active state
+      tagFilters.forEach(f => {
+        f.classList.remove('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-700', 'dark:text-primary-300', 'border-primary-200', 'dark:border-primary-700');
+        f.classList.add('bg-gray-100', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300', 'border-gray-200', 'dark:border-dark-600');
+      });
+      
+      filter.classList.remove('bg-gray-100', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300', 'border-gray-200', 'dark:border-dark-600');
+      filter.classList.add('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-700', 'dark:text-primary-300', 'border-primary-200', 'dark:border-primary-700');
+      
+      currentTag = filter.getAttribute('data-tag') || 'all';
+      filterPosts();
+    });
+  });
+</script>

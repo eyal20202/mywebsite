@@ -1,0 +1,260 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout title="About Me - Eyal Mizrahi">
+  <Header />
+  <main class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Hero Section -->
+    <section class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">
+        About Me
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Full Stack Developer with 6+ years of experience in backend (Java, Spring, Node.js), 
+        frontend (React/Redux with TS/JS), and cloud platforms (AWS, OpenShift). 
+        Proficient in Microservices, REST APIs, Kafka, Redis, CI/CD, Docker and Kubernetes.
+      </p>
+    </section>
+
+    <!-- My Story -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">My Story</h2>
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+          I'm Eyal Mizrahi, a passionate Full Stack Developer based in Tel Aviv, Israel. 
+          With over 6 years of experience in software development, I specialize in building 
+          scalable, high-performance applications using modern technologies and best practices.
+        </p>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+          My journey in software development began at Hadassah Academic College, where I earned 
+          my B.Sc. in Computer Science. Since then, I've worked across various industries, 
+          from telecom services to contract management systems, always focusing on delivering 
+          robust solutions that solve real-world problems.
+        </p>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+          I believe in continuous learning and staying up-to-date with the latest technologies 
+          and industry trends. When I'm not coding, you can find me exploring new technologies, 
+          contributing to open-source projects, or sharing knowledge with the developer community.
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">Skills & Technologies</h2>
+      
+      <!-- Backend -->
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Backend Development</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">Java</span>
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">Spring Framework</span>
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">Node.js</span>
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">Express.js</span>
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">REST APIs</span>
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">Microservices</span>
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">Kafka</span>
+          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">Redis</span>
+        </div>
+      </div>
+
+      <!-- Frontend -->
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Frontend Development</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">React</span>
+          <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">Redux</span>
+          <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">TypeScript</span>
+          <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">JavaScript</span>
+          <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">SCSS</span>
+          <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">jQuery</span>
+        </div>
+      </div>
+
+      <!-- DevOps & Cloud -->
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">DevOps & Cloud</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">Docker</span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">Kubernetes</span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">AWS</span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">OpenShift</span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">GCP</span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">Jenkins</span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">CI/CD</span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">Linux</span>
+        </div>
+      </div>
+
+      <!-- Databases -->
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Databases</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium">MySQL</span>
+          <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium">SQL Server</span>
+          <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium">Oracle</span>
+          <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium">MongoDB</span>
+          <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium">Couchbase</span>
+          <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium">NoSQL</span>
+        </div>
+      </div>
+
+      <!-- Mobile Development -->
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Mobile Development</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium">Android Studio</span>
+          <span class="px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium">Xcode</span>
+          <span class="px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium">Swift</span>
+          <span class="px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium">Google Play Store</span>
+          <span class="px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium">Apple App Store</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Timeline -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">Professional Experience</h2>
+      
+      <div class="space-y-8">
+        <!-- Code Oasis -->
+        <div class="relative pl-8 border-l-4 border-primary-500">
+          <div class="absolute w-4 h-4 bg-primary-500 rounded-full -left-2 top-0"></div>
+          <div class="mb-2">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Full Stack Developer</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium">Code Oasis</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">May 2023 - Present</p>
+          </div>
+          <ul class="text-gray-600 dark:text-gray-300 space-y-2 list-disc list-inside">
+            <li>Led development and maintenance of an online contracts management system</li>
+            <li>Designed backend services using Java (Spring) and Node.js (Express), with RESTful APIs and SQL databases</li>
+            <li>Built client-side applications using React, Redux, and TypeScript</li>
+            <li>Managed deployment on the Azure cloud platform</li>
+            <li>Implemented CI/CD pipelines using Jenkins and Git</li>
+            <li>Led the migration from a monolithic system to a Microservices architecture</li>
+            <li>Integrated Redis for caching to enhance performance and reduce database load</li>
+          </ul>
+        </div>
+
+        <!-- Amdocs -->
+        <div class="relative pl-8 border-l-4 border-primary-500">
+          <div class="absolute w-4 h-4 bg-primary-500 rounded-full -left-2 top-0"></div>
+          <div class="mb-2">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Software Engineer</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium">Amdocs</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Jul 2021 - May 2023</p>
+          </div>
+          <ul class="text-gray-600 dark:text-gray-300 space-y-2 list-disc list-inside">
+            <li>Developed and maintained a negotiations and contracts system for telecom service providers</li>
+            <li>Built Microservices architecture using Java (Spring, Hibernate) and Node.js (Express)</li>
+            <li>Designed and implemented RESTful APIs</li>
+            <li>Worked with Kafka for stream processing and messaging</li>
+            <li>Managed data using both SQL and NoSQL databases (MongoDB, Couchbase)</li>
+            <li>Developed frontend features using React/Redux with JavaScript/TypeScript</li>
+            <li>Deployed services to production on the Red Hat OpenShift cloud platform</li>
+            <li>Managed containerized services with Docker and orchestrated them using Kubernetes</li>
+            <li>Implemented Redis caching to enhance system performance</li>
+          </ul>
+        </div>
+
+        <!-- Trinity -->
+        <div class="relative pl-8 border-l-4 border-primary-500">
+          <div class="absolute w-4 h-4 bg-primary-500 rounded-full -left-2 top-0"></div>
+          <div class="mb-2">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Full Stack Developer</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium">Trinity</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Aug 2018 - Jul 2021</p>
+          </div>
+          <ul class="text-gray-600 dark:text-gray-300 space-y-2 list-disc list-inside">
+            <li>Developed customer management (CRM) systems using Java (Spring, Hibernate) and REST APIs</li>
+            <li>Worked with data stored in MySQL, Excel, and CSV formats</li>
+            <li>Built frontend applications using React (TypeScript/JavaScript), SCSS, and jQuery</li>
+            <li>Developed mobile applications using Android Studio (Java) and Xcode (Swift)</li>
+            <li>Published apps to Google Play Store and Apple App Store</li>
+            <li>Managed local and remote development environments on Linux</li>
+            <li>Gained experience with cloud platforms including GCP and AWS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">Education</h2>
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">B.Sc. in Computer Science</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Hadassah Academic College</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Oct 2015 - Sep 2018</p>
+      </div>
+    </section>
+
+    <!-- Languages -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">Languages</h2>
+      <div class="flex flex-wrap gap-4">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+          <span class="text-gray-700 dark:text-gray-300">Hebrew (Native)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+          <span class="text-gray-700 dark:text-gray-300">English (Fluent)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Values -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">Core Values</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Continuous Learning</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            I believe in staying current with the latest technologies and industry best practices 
+            to deliver the most effective solutions.
+          </p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Quality & Performance</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            I focus on writing clean, maintainable code and optimizing applications for 
+            performance and scalability.
+          </p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Problem Solving</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            I approach challenges systematically, breaking down complex problems into 
+            manageable solutions.
+          </p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Collaboration</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            I value teamwork and believe in sharing knowledge to help the entire team grow 
+            and succeed together.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="text-center bg-gradient-to-r from-primary-600 to-primary-400 rounded-lg p-8 text-white">
+      <h2 class="text-2xl font-bold mb-4">Ready to Work Together?</h2>
+      <p class="text-primary-100 mb-6 max-w-2xl mx-auto">
+        I'm always interested in new opportunities and exciting projects. 
+        Let's discuss how we can bring your ideas to life.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+          Get In Touch
+        </a>
+        <a href="/projects" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors">
+          View My Work
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>

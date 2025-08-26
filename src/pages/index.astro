@@ -1,0 +1,272 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Avatar from '../components/Avatar.astro';
+import AIAssistant from '../components/AIAssistant';
+
+// Get featured projects (you can replace this with real data)
+const featuredProjects = [
+  {
+    title: 'AI Chat Assistant',
+    description: 'Interactive AI-powered chat assistant integrated into the website using OpenAI API and React.',
+    technologies: ['React', 'OpenAI API', 'TypeScript', 'Astro'],
+    link: '/projects/ai-chat-assistant',
+    github: '#',
+    demo: '#'
+  },
+  {
+    title: 'Contract Management System',
+    description: 'Full-stack online contracts management system with microservices architecture.',
+    technologies: ['Java', 'Spring', 'React', 'Node.js', 'Azure'],
+    link: '/projects',
+    github: '#',
+    demo: '#'
+  },
+  {
+    title: 'Telecom Negotiations Platform',
+    description: 'Enterprise-level negotiations and contracts system for telecom service providers.',
+    technologies: ['Java', 'Kafka', 'Kubernetes', 'OpenShift', 'MongoDB'],
+    link: '/projects',
+    github: '#',
+    demo: '#'
+  }
+];
+
+const skills = [
+  { category: 'Backend', items: ['Java', 'Spring Framework', 'Node.js', 'Express.js', 'REST APIs', 'Microservices'] },
+  { category: 'Frontend', items: ['React', 'Redux', 'TypeScript', 'JavaScript', 'SCSS'] },
+  { category: 'DevOps & Cloud', items: ['Docker', 'Kubernetes', 'AWS', 'OpenShift', 'Jenkins', 'CI/CD'] },
+  { category: 'Databases', items: ['MySQL', 'SQL Server', 'MongoDB', 'Redis', 'NoSQL'] }
+];
+---
+
+<Layout title="Eyal Mizrahi - Full Stack Developer" description="Full Stack Developer with 6+ years of experience in Java, Spring, Node.js, React, and cloud platforms. Specializing in microservices, REST APIs, and scalable applications.">
+  <Header />
+  
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 border-b border-gray-200 dark:border-gray-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+              Hi, I'm <span class="bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">Eyal Mizrahi</span>
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+              Full Stack Developer with 6+ years of experience in backend (Java, Spring, Node.js), 
+              frontend (React/Redux with TS/JS), and cloud platforms (AWS, OpenShift). 
+              Proficient in Microservices, REST APIs, Kafka, Redis, CI/CD, Docker and Kubernetes.
+            </p>
+            
+            <div class="flex flex-wrap gap-4 mb-8">
+              <div class="flex items-center space-x-2 bg-primary-50 dark:bg-primary-900/20 px-4 py-2 rounded-full">
+                <span>📍</span>
+                <span class="text-primary-700 dark:text-primary-300">Tel Aviv, Israel</span>
+              </div>
+              <div class="flex items-center space-x-2 bg-primary-50 dark:bg-primary-900/20 px-4 py-2 rounded-full">
+                <span>💼</span>
+                <span class="text-primary-700 dark:text-primary-300">6+ Years Experience</span>
+              </div>
+              <div class="flex items-center space-x-2 bg-primary-50 dark:bg-primary-900/20 px-4 py-2 rounded-full">
+                <span>🚀</span>
+                <span class="text-primary-700 dark:text-primary-300">Available for Opportunities</span>
+              </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-300">
+                <span>Get In Touch</span>
+                <span class="ml-2">💬</span>
+              </a>
+              <a href="/projects" class="inline-flex items-center justify-center px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-semibold rounded-lg transition-all duration-300">
+                <span>View My Work</span>
+                <span class="ml-2">💼</span>
+              </a>
+              <a href="/resume.pdf" class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-all duration-300">
+                <span>Download Resume</span>
+                <span class="ml-2">⬇️</span>
+              </a>
+              <a href="https://github.com/eyal20202" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-all duration-300">
+                <span>GitHub</span>
+                <span class="ml-2">🐙</span>
+              </a>
+              <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-all duration-300">
+                <span>LinkedIn</span>
+                <span class="ml-2">💼</span>
+              </a>
+            </div>
+          </div>
+          
+          <div class="flex justify-center">
+            <Avatar size="xl" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section class="py-20 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+            About Me
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            I'm a passionate Full Stack Developer based in Tel Aviv, specializing in building scalable, 
+            high-performance applications. My journey began at Hadassah Academic College where I earned 
+            my B.Sc. in Computer Science, and I've been working across various industries ever since.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {skills.map((skillGroup) => (
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                {skillGroup.category}
+              </h3>
+              <div class="space-y-2">
+                {skillGroup.items.map((skill) => (
+                  <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 bg-primary-500 rounded-full"></span>
+                    <span class="text-gray-600 dark:text-gray-300">{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+            Featured Projects
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Here are some of the projects I've worked on, showcasing my expertise in full-stack development, 
+            microservices architecture, and cloud platforms.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredProjects.map((project) => (
+            <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                  {project.title}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                  {project.description}
+                </p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                  {project.technologies.map((tech) => (
+                    <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div class="flex space-x-4">
+                  <a href={project.demo} class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                    Live Demo →
+                  </a>
+                  <a href={project.github} class="text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium">
+                    GitHub →
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div class="text-center mt-12">
+          <a href="/projects" class="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-300">
+            <span>View All Projects</span>
+            <span class="ml-2">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Highlights -->
+    <section class="py-20 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+            Professional Experience
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            I've had the privilege of working with amazing teams and companies, from fast-paced startups 
+            to established enterprises, always focusing on delivering robust solutions.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🏢</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Code Oasis</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium">Full Stack Developer</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">May 2023 - Present</p>
+            <p class="text-gray-600 dark:text-gray-300 mt-3">
+              Leading development of online contracts management system with microservices architecture.
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">📡</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Amdocs</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium">Software Engineer</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Jul 2021 - May 2023</p>
+            <p class="text-gray-600 dark:text-gray-300 mt-3">
+              Developed telecom negotiations and contracts system with Kafka and Kubernetes.
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">💻</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Trinity</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium">Full Stack Developer</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Aug 2018 - Jul 2021</p>
+            <p class="text-gray-600 dark:text-gray-300 mt-3">
+              Built CRM systems and mobile applications for Android and iOS platforms.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-primary-600 dark:bg-primary-700">
+      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-white mb-6">
+          Ready to work together?
+        </h2>
+        <p class="text-xl text-primary-100 mb-8">
+          I'm always interested in new opportunities and exciting projects. 
+          Let's discuss how we can bring your ideas to life.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-600 hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-300">
+            <span>Get In Touch</span>
+            <span class="ml-2">💬</span>
+          </a>
+          <a href="/about" class="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold rounded-lg transition-all duration-300">
+            <span>Learn More About Me</span>
+            <span class="ml-2">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Assistant -->
+    <AIAssistant client:load />
+  </main>
+</Layout>

@@ -1,0 +1,148 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/schedule', label: 'Schedule' }
+];
+
+const isActive = (href: string) => {
+  if (href === '/') {
+    return currentPath === '/';
+  }
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo/Brand -->
+      <div class="flex items-center">
+        <a href="/" class="text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+          Eyal Mizrahi
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`text-sm font-medium transition-colors ${
+              isActive(item.href)
+                ? 'text-primary-600 dark:text-primary-400'
+                : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+            }`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right side controls -->
+      <div class="flex items-center space-x-4">
+        <!-- Language Switcher (placeholder) -->
+        <button class="hidden sm:flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+          <span>🌐</span>
+          <span>EN</span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button
+          id="theme-toggle"
+          onclick="toggleTheme()"
+          class="p-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+          aria-label="Toggle dark mode"
+        >
+          🌙
+        </button>
+
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-button"
+          class="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+          aria-label="Toggle mobile menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="md:hidden hidden">
+      <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-700">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+              isActive(item.href)
+                ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+            }`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    const isHidden = mobileMenu?.classList.contains('hidden');
+    
+    if (isHidden) {
+      mobileMenu?.classList.remove('hidden');
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      `;
+    } else {
+      mobileMenu?.classList.add('hidden');
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      `;
+    }
+  });
+
+  // Close mobile menu when clicking on a link
+  const mobileLinks = mobileMenu?.querySelectorAll('a');
+  mobileLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      `;
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element;
+    if (!mobileMenuButton?.contains(target) && !mobileMenu?.contains(target)) {
+      mobileMenu?.classList.add('hidden');
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      `;
+    }
+  });
+</script>
